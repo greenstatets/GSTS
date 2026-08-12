@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estimate — GreenState Tree Service LLC</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function() {
+    var saved = localStorage.getItem('gs-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      <img src="assets/greenstate-logo.png" alt="GreenState Tree Service logo">
+          </a>
+    <nav class="main">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="assessments.html">Assessments</a>
+      <a href="estimate.html" class="active">Estimate</a>
+      <a href="feedback.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="estimate.html" class="cta">Get a Quote</a>
+    </nav>
+    <div class="util-row">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn hamburger-btn" id="hamburgerBtn" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="assessments.html">Assessments</a>
+      <a href="estimate.html" class="active">Estimate</a>
+      <a href="feedback.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="estimate.html" class="cta">Get a Quote</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Estimate Tool</div>
+    <h1>Run a ballpark estimate.</h1>
+    <p>This gives you an <strong>average</strong> range based on typical jobs of this type. Every number here updates live — your final price is always confirmed by Alex on-site, where lean, access, and hazard get a real look.</p>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="resume-banner" id="resumeBanner">
+    <span><strong>Welcome back.</strong> You started an estimate earlier — pick up where you left off?</span>
+    <div class="resume-actions">
+      <button id="resumeDismiss">Dismiss</button>
+      <button id="resumeApply" class="primary">Resume It</button>
+    </div>
+  </div>
+
+  <div class="console" id="quoteForm">
+    <div class="console-form">
+
+      <div class="field">
+        <label>Service Type</label>
+        <div class="chip-row" id="serviceChips">
+          <div class="chip selected" data-value="removal">Tree Removal</div>
+          <div class="chip" data-value="pruning">Tree Pruning</div>
+          <div class="chip" data-value="storm">Storm Risk Assessment</div>
+          <div class="chip" data-value="permit">Removal &amp; Replant Permits</div>
+          <div class="chip" data-value="cleanup">Storm Cleanup</div>
+        </div>
+      </div>
+
+      <div class="field" id="sizeField">
+        <label id="sizeLabel">Approximate Tree Height</label>
+        <div class="range-row">
+          <input type="range" id="sizeRange" min="25" max="150" step="5" value="45">
+          <span class="range-val" id="sizeVal">45 ft</span>
+        </div>
+      </div>
+
+      <div class="field" id="cleanupField">
+        <label>Cleanup</label>
+        <div class="chip-row" id="cleanupChips">
+          <div class="chip selected" data-value="full">Full Cleanup</div>
+          <div class="chip" data-value="none">I'll Haul It Myself</div>
+        </div>
+      </div>
+
+      <div class="field" id="hoursField" style="display:none;">
+        <label>Estimated Hours On-Site</label>
+        <div class="range-row">
+          <input type="range" id="hoursRange" min="1" max="10" value="3">
+          <span class="range-val" id="hoursVal">3 hrs</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Access &amp; Hazard Level</label>
+        <div class="chip-row" id="complexityChips">
+          <div class="chip selected" data-value="open">Open Yard</div>
+          <div class="chip" data-value="tight">Tight Space</div>
+          <div class="chip" data-value="hazard">Hazardous</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Anything Else?</label>
+        <div class="chip-row" id="addonChips">
+          <div class="chip" id="buckRoundsChip" data-value="buckRounds">Cut to 16&quot; Rounds</div>
+          <div class="chip" data-value="manlift">Manlift Access</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Discounts</label>
+        <div class="chip-row" id="seniorChips">
+          <div class="chip" data-value="senior">Senior Discount (10%)</div>
+        </div>
+        <div class="chip-row" id="keepWoodChips" style="margin-top: 8px;">
+          <div class="chip" data-value="keepWood">I'll Keep the Wood</div>
+        </div>
+      </div>
+
+      <div class="field" id="cartField" style="display:none;">
+        <label>This Project (<span id="cartCount">0</span> item<span id="cartPlural">s</span>)</label>
+        <div id="cartList"></div>
+        <div class="readout-divider" style="margin: 12px 0;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:13px; color:var(--ink-dim);">Project Total (average)</span>
+          <strong id="cartTotal" style="font-family:var(--mono); color:var(--amber); font-size:16px;"></strong>
+        </div>
+      </div>
+
+      <div class="submit-row" style="margin-top: 4px; margin-bottom: 4px;">
+        <button type="button" class="btn btn-ghost" id="addToCartBtn">+ Add This to the Project</button>
+      </div>
+      <p style="font-size: 12px; color: var(--ink-faint); margin-bottom: 24px; line-height: 1.6;">
+        Removing more than one tree, or mixing removals with pruning? Add each one here, then send your request once you've added them all.
+      </p>
+
+      <div class="field">
+        <label>Name</label>
+        <input type="text" id="reqName" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" id="reqPhone" placeholder="503-000-0000">
+      </div>
+      <div class="field">
+        <label>Street Address</label>
+        <input type="text" id="reqStreet" placeholder="Street">
+      </div>
+      <div class="field">
+        <label>City</label>
+        <input type="text" id="reqCity" placeholder="City">
+      </div>
+      <div class="field">
+        <label>Notes for Alex</label>
+        <textarea id="reqNotes" placeholder="Anything specific about the tree, access, or timing — mention if you'll attach photos once your email app opens"></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button type="button" class="btn btn-primary" id="sendRequestBtn">Send Request to GreenState</button>
+      </div>
+      <p style="font-size: 11.5px; color: var(--ink-faint); margin-top: 14px; line-height: 1.6;">
+        "Send Request" opens your email app with a message pre-filled to <strong>greenstatetreeservice@gmail.com</strong> — nothing is sent until you hit send there, and nothing is stored on this site.
+      </p>
+    </div>
+
+    <div class="console-readout">
+      <div class="dial">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(61,220,151,0.15)" stroke-width="10"/>
+          <circle id="dialArc" cx="100" cy="100" r="88" fill="none" stroke="#3ddc97" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="184 553" stroke-dashoffset="0"
+            transform="rotate(-90 100 100)"/>
+          <text x="100" y="94" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="2" fill="#9aa8a1">ACCESS LEVEL</text>
+          <text id="dialPct" x="100" y="118" text-anchor="middle" font-family="monospace" font-size="24" font-weight="700" fill="#3ddc97">33%</text>
+        </svg>
+      </div>
+      <div class="readout-label">Estimated Range (Average)</div>
+      <div class="readout-price" id="priceOut">$630 – $925</div>
+      <div class="readout-sub" id="subOut">Small removal &middot; open access</div>
+
+      <div class="readout-divider"></div>
+
+      <div class="readout-note">
+        <strong>This is a ballpark, not a bid.</strong> Final pricing is set when Alex sees the tree, the access, and what's around it. No job is booked from this page alone. Properties well outside Portland may include a travel fee — just ask.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap grid">
+    <div>
+      <h4>GreenState Tree Service LLC</h4>
+      <div class="card-mini"><img src="assets/business-card.png" alt="GreenState Tree Service business card"></div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:5034671904">503-467-1904</a></p>
+      <p><a href="mailto:greenstatetreeservice@gmail.com">greenstatetreeservice@gmail.com</a></p>
+      <p>Portland, OR</p>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <p><a href="services.html">Services</a></p>
+      <p><a href="our-work.html">Our Work</a></p>
+      <p><a href="assessments.html">Property Assessments</a></p>
+      <p><a href="estimate.html">Get an Estimate</a></p>
+      <p><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>OR 201624 &nbsp;·&nbsp; WA GREENTS861B1</span>
+    <span>Locally Owned &middot; Licensed &amp; Bonded</span>
+  </div>
+</footer>
+
+<script src="assets/common.js"></script>
+<script src="assets/quote.js"></script>
+<script>
+  const state = { service: 'removal', size: 45, complexity: 'open', hours: 3, noCleanup: false, addons: [], senior: false, keepWood: false };
+  let cart = [];
+  let hasInteracted = false;
+
+  const serviceLabels = {
+    removal: 'Approximate Tree Height',
+    pruning: 'Approximate Tree Height',
+    storm: null,
+    permit: null,
+    cleanup: null
+  };
+
+  function setupChips(containerId, key) {
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        state[key] = chip.dataset.value;
+        hasInteracted = true;
+        onServiceOrInputChange(key);
+      });
+    });
+  }
+
+  function onServiceOrInputChange(changedKey) {
+    if (changedKey === 'service') {
+      const sizeField = document.getElementById('sizeField');
+      const hoursField = document.getElementById('hoursField');
+      const sizeLabel = document.getElementById('sizeLabel');
+      const cleanupField = document.getElementById('cleanupField');
+
+      cleanupField.style.display = (state.service === 'removal' || state.service === 'pruning') ? 'block' : 'none';
+
+      if (state.service === 'cleanup') {
+        sizeField.style.display = 'none';
+        hoursField.style.display = 'block';
+      } else if (state.service === 'storm' || state.service === 'permit') {
+        sizeField.style.display = 'none';
+        hoursField.style.display = 'none';
+      } else {
+        sizeField.style.display = 'block';
+        hoursField.style.display = 'none';
+        sizeLabel.textContent = serviceLabels[state.service];
+      }
+    }
+    updateBuckRoundsVisibility();
+    updateKeepWoodVisibility();
+    render();
+  }
+
+  document.getElementById('hoursRange').addEventListener('input', (e) => {
+    state.hours = parseInt(e.target.value, 10);
+    document.getElementById('hoursVal').textContent = state.hours + ' hrs';
+    hasInteracted = true;
+    render();
+  });
+
+  document.getElementById('sizeRange').addEventListener('input', (e) => {
+    state.size = parseInt(e.target.value, 10);
+    document.getElementById('sizeVal').textContent = state.size + ' ft';
+    hasInteracted = true;
+    updateBuckRoundsVisibility();
+    updateKeepWoodVisibility();
+    render();
+  });
+
+  setupChips('serviceChips', 'service');
+  setupChips('complexityChips', 'complexity');
+
+  // cleanup toggle: single-select chip pair, sets noCleanup before rendering
+  function updateBuckRoundsVisibility() {
+    const chip = document.getElementById('buckRoundsChip');
+    // only a Tree Removal brings down a trunk worth bucking into rounds —
+    // and only worth offering once there's meaningful trunk (medium/large)
+    const irrelevant = (state.service !== 'removal') || (state.size < 45);
+    chip.style.display = irrelevant ? 'none' : 'inline-flex';
+    if (irrelevant) {
+      const idx = state.addons.indexOf('buckRounds');
+      if (idx !== -1) {
+        state.addons.splice(idx, 1);
+        chip.classList.remove('selected');
+      }
+    }
+  }
+
+  function updateKeepWoodVisibility() {
+    const field = document.getElementById('keepWoodChips');
+    // same logic as buck-rounds: only a Removal on a medium/large tree
+    // produces trunk wood worth keeping, and only when it's not already
+    // covered by the customer hauling everything themselves
+    const notApplicable = (state.service !== 'removal') || (state.size < 45);
+    const alreadyCovered = (state.service === 'removal' && state.noCleanup);
+    const irrelevant = notApplicable || alreadyCovered;
+    field.style.display = irrelevant ? 'none' : 'flex';
+    if (irrelevant && state.keepWood) {
+      state.keepWood = false;
+      document.querySelector('#keepWoodChips .chip').classList.remove('selected');
+    }
+  }
+
+  document.querySelectorAll('#cleanupChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.noCleanup = (chip.dataset.value === 'none');
+      hasInteracted = true;
+      updateKeepWoodVisibility();
+      render();
+    });
+  });
+
+  // senior discount: single toggle chip, click to switch on/off
+  document.querySelectorAll('#seniorChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      state.senior = !state.senior;
+      chip.classList.toggle('selected', state.senior);
+      hasInteracted = true;
+      render();
+    });
+  });
+
+  // keep-the-wood: single toggle chip, subtracts instead of adding (see quote.js)
+  document.querySelectorAll('#keepWoodChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      state.keepWood = !state.keepWood;
+      chip.classList.toggle('selected', state.keepWood);
+      hasInteracted = true;
+      render();
+    });
+  });
+
+  // add-ons: independent multi-select toggles, not mutually exclusive
+  document.querySelectorAll('#addonChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const key = chip.dataset.value;
+      const idx = state.addons.indexOf(key);
+      if (idx === -1) {
+        state.addons.push(key);
+        chip.classList.add('selected');
+      } else {
+        state.addons.splice(idx, 1);
+        chip.classList.remove('selected');
+      }
+      hasInteracted = true;
+      render();
+    });
+  });
+
+  const complexityPct = { open: 0.33, tight: 0.66, hazard: 1.0 };
+  const CIRC = 2 * Math.PI * 88;
+
+  const serviceNames = { removal: 'Tree Removal', pruning: 'Tree Pruning', storm: 'Storm Risk Assessment', permit: 'Removal & Replant Permits', cleanup: 'Storm Cleanup' };
+  const addonNames = { buckRounds: 'Cut to 16" Rounds', manlift: 'Manlift Access' };
+  const complexityNames = { open: 'open access', tight: 'tight access', hazard: 'hazardous access' };
+
+  function describeState(s) {
+    let sub = s.service === 'removal' || s.service === 'pruning' ? s.size + 'ft' : '';
+    if ((s.service === 'removal' || s.service === 'pruning') && s.noCleanup) sub += (sub ? ' · ' : '') + 'you haul';
+    if (s.service === 'cleanup') sub += (sub ? ' · ' : '') + s.hours + ' hrs';
+    sub += (sub ? ' · ' : '') + complexityNames[s.complexity];
+    if (s.addons && s.addons.length) sub += ' · ' + s.addons.map(k => addonNames[k]).join(', ');
+    if (s.keepWood) sub += ' · keeps wood';
+    if (s.senior) sub += ' · senior discount';
+    return { label: serviceNames[s.service], sub };
+  }
+
+  function priceLabel(est) {
+    return (est.low === 0 && est.high === 0) ? 'FREE' : fmt(est.low) + ' – ' + fmt(est.high);
+  }
+
+  function render() {
+    const est = computeEstimate(state);
+    document.getElementById('priceOut').textContent = priceLabel(est);
+
+    const d = describeState(state);
+    document.getElementById('subOut').textContent = d.label + ' · ' + d.sub;
+
+    const pct = complexityPct[state.complexity];
+    const dash = CIRC * pct;
+    document.getElementById('dialArc').setAttribute('stroke-dasharray', dash + ' ' + CIRC);
+    document.getElementById('dialPct').textContent = Math.round(pct * 100) + '%';
+    if (hasInteracted && typeof saveState === 'function') saveState();
+  }
+
+  function saveState() {
+    localStorage.setItem('gs-last-estimate', JSON.stringify({ state, savedAt: new Date().toLocaleDateString() }));
+  }
+
+  function applySavedState(saved) {
+    hasInteracted = true;
+    Object.assign(state, saved.state);
+    if (typeof state.size !== 'number' || isNaN(state.size)) state.size = 45; // guard against pre-slider saved data
+    document.querySelectorAll('#serviceChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.service));
+    onServiceOrInputChange('service');
+    document.getElementById('sizeRange').value = state.size;
+    document.getElementById('sizeVal').textContent = state.size + ' ft';
+    document.querySelectorAll('#complexityChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.complexity));
+    document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.toggle('selected', (c.dataset.value === 'none') === !!state.noCleanup));
+    document.querySelectorAll('#seniorChips .chip').forEach(c => c.classList.toggle('selected', !!state.senior));
+    document.querySelectorAll('#keepWoodChips .chip').forEach(c => c.classList.toggle('selected', !!state.keepWood));
+    updateKeepWoodVisibility();
+    updateBuckRoundsVisibility();
+    document.querySelectorAll('#addonChips .chip').forEach(c => c.classList.toggle('selected', (state.addons || []).includes(c.dataset.value)));
+    document.getElementById('hoursRange').value = state.hours;
+    document.getElementById('hoursVal').textContent = state.hours + ' hrs';
+    render();
+  }
+
+  const savedRaw = localStorage.getItem('gs-last-estimate');
+  if (savedRaw) {
+    try {
+      const saved = JSON.parse(savedRaw);
+      document.getElementById('resumeBanner').classList.add('show');
+      document.getElementById('resumeApply').addEventListener('click', () => {
+        applySavedState(saved);
+        document.getElementById('resumeBanner').classList.remove('show');
+      });
+      document.getElementById('resumeDismiss').addEventListener('click', () => {
+        document.getElementById('resumeBanner').classList.remove('show');
+      });
+    } catch (e) { /* ignore malformed saved state */ }
+  }
+
+  updateBuckRoundsVisibility();
+  render();
+
+  // ---------- project cart ----------
+  function cartItemTotal(item) { return item.est; }
+
+  function renderCart() {
+    const cartField = document.getElementById('cartField');
+    const list = document.getElementById('cartList');
+    const btn = document.getElementById('sendRequestBtn');
+
+    if (cart.length === 0) {
+      cartField.style.display = 'none';
+      btn.textContent = 'Send Request to GreenState';
+      return;
+    }
+
+    cartField.style.display = 'block';
+    document.getElementById('cartCount').textContent = cart.length;
+    document.getElementById('cartPlural').textContent = cart.length === 1 ? '' : 's';
+
+    list.innerHTML = cart.map((item, i) => `
+      <div class="cart-item">
+        <div>
+          <div class="ci-label">${item.label}</div>
+          <div class="ci-sub">${item.sub}</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="ci-price">${priceLabel(item.est)}</span>
+          <button type="button" class="ci-remove" data-index="${i}" aria-label="Remove">&times;</button>
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.ci-remove').forEach(b => {
+      b.addEventListener('click', () => {
+        cart.splice(parseInt(b.dataset.index, 10), 1);
+        renderCart();
+      });
+    });
+
+    const totalLow = cart.reduce((sum, i) => sum + i.est.low, 0);
+    const totalHigh = cart.reduce((sum, i) => sum + i.est.high, 0);
+    document.getElementById('cartTotal').textContent = priceLabel({ low: totalLow, high: totalHigh });
+
+    btn.textContent = 'Send Project Request (' + cart.length + ' item' + (cart.length === 1 ? '' : 's') + ')';
+  }
+
+  document.getElementById('addToCartBtn').addEventListener('click', () => {
+    const est = computeEstimate(state);
+    const d = describeState(state);
+    cart.push({ label: d.label, sub: d.sub, est });
+    hasInteracted = true;
+    renderCart();
+
+    // reset per-tree fields so the next item starts clean; keep access/hazard
+    // level as-is since it's usually the same property
+    state.service = 'removal';
+    state.size = 45;
+    state.noCleanup = false;
+    state.addons = [];
+    state.keepWood = false;
+    document.querySelectorAll('#serviceChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'removal'));
+    document.getElementById('sizeRange').value = 45;
+    document.getElementById('sizeVal').textContent = '45 ft';
+    document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'full'));
+    document.querySelectorAll('#addonChips .chip').forEach(c => c.classList.remove('selected'));
+    document.querySelector('#keepWoodChips .chip').classList.remove('selected');
+    onServiceOrInputChange('service');
+    render();
+  });
+
+  document.getElementById('sendRequestBtn').addEventListener('click', () => {
+    const name = document.getElementById('reqName').value;
+    const phone = document.getElementById('reqPhone').value;
+    const street = document.getElementById('reqStreet').value;
+    const city = document.getElementById('reqCity').value;
+    const address = [street, city].filter(Boolean).join(', ');
+    const notes = document.getElementById('reqNotes').value;
+
+    // if nothing's been explicitly added to the project, treat the current
+    // single configuration as the (only) item — preserves the simple
+    // one-tree flow with no extra click required
+    const items = cart.length > 0 ? cart : [(() => {
+      const est = computeEstimate(state);
+      const d = describeState(state);
+      return { label: d.label, sub: d.sub, est };
+    })()];
+
+    const totalLow = items.reduce((sum, i) => sum + i.est.low, 0);
+    const totalHigh = items.reduce((sum, i) => sum + i.est.high, 0);
+
+    const itemLines = items.map((item, i) =>
+      (items.length > 1 ? (i + 1) + '. ' : '') + item.label + ' (' + item.sub + '): ' + priceLabel(item.est)
+    ).join('\n');
+
+    const subject = encodeURIComponent(
+      (items.length > 1 ? 'Multi-Item Estimate Request — ' : 'Estimate Request — ') + (name || 'New Lead')
+    );
+    const body = encodeURIComponent(
+      itemLines + '\n\n' +
+      'Project total (average): ' + priceLabel({ low: totalLow, high: totalHigh }) + ' (not final)\n\n' +
+      'Name: ' + name + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Address: ' + address + '\n' +
+      'Notes: ' + notes
+    );
+    window.location.href = 'mailto:greenstatetreeservice@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+
+
+</body>
+</html>

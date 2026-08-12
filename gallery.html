@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — GreenState Tree Service LLC</title>
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function() {
+    var saved = localStorage.getItem('gs-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      <img src="assets/greenstate-logo.png" alt="GreenState Tree Service logo">
+      <span class="brand-text">Field Console</span>
+    </a>
+    <nav class="main">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="activity.html">Activity</a>
+      <a href="estimate.html">Estimate</a>
+      <a href="feedback.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="estimate.html" class="cta">Get a Quote</a>
+    </nav>
+    <div class="util-row">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn hamburger-btn" id="hamburgerBtn" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="activity.html">Activity</a>
+      <a href="estimate.html">Estimate</a>
+      <a href="feedback.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+      <a href="estimate.html" class="cta">Get a Quote</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Job Archive</div>
+    <h1>Photo &amp; video from recent removals.</h1>
+    <p>Before/after shots, rigging setups, and cleanup footage from jobs across the Portland metro.</p>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="section-head">
+    <div class="eyebrow">Drag to Compare</div>
+    <h2>Before / after.</h2>
+    <p>Demo slider with placeholder panels — swap in a real before/after pair once you've got one, the drag mechanic already works.</p>
+  </div>
+  <div class="ba-slider" id="baSlider">
+    <div class="ba-pane ba-after">
+      <div class="ba-content">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg>
+        <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">After Photo Placeholder</span>
+      </div>
+      <span class="ba-tag right">After</span>
+    </div>
+    <div class="ba-pane ba-before" id="baBefore">
+      <div class="ba-content">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg>
+        <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">Before Photo Placeholder</span>
+      </div>
+      <span class="ba-tag left">Before</span>
+    </div>
+    <div class="ba-handle" id="baHandle"></div>
+  </div>
+
+  <div class="upload-note" style="max-width:720px; margin-left:auto; margin-right:auto;">
+    <strong>These are placeholder panels.</strong> Once you have a real before/after photo pair, replace the two SVG icons with <code>&lt;img&gt;</code> tags — the drag-to-reveal mechanic is already wired and doesn't need to change.
+  </div>
+
+  <div class="gallery-tabs" style="margin-top:48px;">
+    <div class="gallery-tab active" data-filter="all">All</div>
+    <div class="gallery-tab" data-filter="photo">Photos</div>
+    <div class="gallery-tab" data-filter="video">Video</div>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Before / After</span></div>
+    <div class="g-tile video" data-type="video"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Removal Footage</span></div>
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Rigging Setup</span></div>
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Pruning Detail</span></div>
+    <div class="g-tile video" data-type="video"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Storm Cleanup</span></div>
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Canopy Detail</span></div>
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Tight-Space Removal</span></div>
+    <div class="g-tile video" data-type="video"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Crane Job</span></div>
+    <div class="g-tile" data-type="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16 L15 10 L5 19"/></svg><span class="g-label">Site Cleanup</span></div>
+  </div>
+
+  <div class="upload-note">
+    <strong>These are placeholders.</strong> Drop your own photos and video files into an <code>assets/gallery/</code> folder and swap the tile SVGs for <code>&lt;img&gt;</code> or <code>&lt;video&gt;</code> tags — the grid, tabs, and filtering JS are already wired for it. I didn't pull in any of the property photos from your estimate emails since those belong to specific clients' homes, not to GreenState's own marketing.
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap grid">
+    <div>
+      <h4>GreenState Tree Service LLC</h4>
+      <div class="card-mini"><img src="assets/business-card.png" alt="GreenState Tree Service business card"></div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:5034671904">503-467-1904</a></p>
+      <p><a href="mailto:greenstatetreeservice@gmail.com">greenstatetreeservice@gmail.com</a></p>
+      <p>Portland, OR &middot; 100-mile service radius</p>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <p><a href="services.html">Services</a></p>
+      <p><a href="gallery.html">Gallery</a></p>
+      <p><a href="estimate.html">Get an Estimate</a></p>
+      <p><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>OR 201624 &nbsp;·&nbsp; WA GREENTS861B1</span>
+    <span>Locally Owned &middot; Licensed &amp; Bonded</span>
+  </div>
+</footer>
+
+<script src="assets/common.js"></script>
+<script>
+  const tabs = document.querySelectorAll('.gallery-tab');
+  const tiles = document.querySelectorAll('#galleryGrid .g-tile');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      tiles.forEach(tile => {
+        tile.style.display = (filter === 'all' || tile.dataset.type === filter) ? 'flex' : 'none';
+      });
+    });
+  });
+
+  // before/after drag-to-reveal
+  const slider = document.getElementById('baSlider');
+  const handle = document.getElementById('baHandle');
+  const before = document.getElementById('baBefore');
+  let dragging = false;
+
+  function setPosition(clientX) {
+    const rect = slider.getBoundingClientRect();
+    let pct = ((clientX - rect.left) / rect.width) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    handle.style.left = pct + '%';
+    before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+  }
+
+  handle.addEventListener('mousedown', () => dragging = true);
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('mousemove', (e) => { if (dragging) setPosition(e.clientX); });
+  slider.addEventListener('click', (e) => setPosition(e.clientX));
+
+  handle.addEventListener('touchstart', () => dragging = true, { passive: true });
+  window.addEventListener('touchend', () => dragging = false);
+  window.addEventListener('touchmove', (e) => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+
+  setPosition(slider.getBoundingClientRect().left + slider.getBoundingClientRect().width / 2);
+</script>
+
+
+
+</body>
+</html>
