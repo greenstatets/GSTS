@@ -21,8 +21,12 @@ const COMPLEXITY_MULT = {
   hazard: 1.7    // hazardous / high-risk removal
 };
 
-// Customer hauls their own wood instead of full cleanup — typically 1/3 to 1/2 of full cost
+// Customer hauls their own wood instead of full cleanup — typically 1/3 to 1/2 of full cost.
+// This is sized for REMOVAL specifically, where hauling an entire tree's wood is a huge
+// share of the job. Pruning's "cleanup" is just branch debris — a much smaller share of
+// the total labor — so it gets its own, much more modest discount below.
 const NO_CLEANUP_MULT = { low: 0.33, high: 0.5 };
+const PRUNING_NO_CLEANUP_MULT = { low: 0.85, high: 0.90 };
 
 const SENIOR_DISCOUNT = 0.10;
 
@@ -91,8 +95,8 @@ function computeEstimate(state) {
     low = base * 0.85;
     high = base * 1.2;
     if (noCleanup) {
-      low *= NO_CLEANUP_MULT.low;
-      high *= NO_CLEANUP_MULT.high;
+      low *= PRUNING_NO_CLEANUP_MULT.low;
+      high *= PRUNING_NO_CLEANUP_MULT.high;
     }
   } else if (service === 'permit') {
     low = RATES.permit.flat * 0.9;

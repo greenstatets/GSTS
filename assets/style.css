@@ -54,7 +54,24 @@ img { max-width: 100%; display: block; }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
 /* ---------- Header ---------- */
-header.site {
+header.site { position: relative; z-index: 50; }
+.header-top {
+  background: rgba(0,0,0,0.15);
+  border-bottom: 1px solid var(--glass-border);
+}
+.header-top-inner {
+  display: flex; align-items: center; justify-content: flex-end; gap: 18px;
+  padding: 7px 24px; max-width: 1220px; margin: 0 auto;
+}
+.header-phone {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600; color: var(--ink-dim);
+  margin-right: auto;
+}
+.header-phone svg { width: 13px; height: 13px; }
+.header-phone:hover { color: var(--green); }
+.header-badge { font-size: 11.5px; color: var(--ink-faint); }
+.header-main {
   position: sticky; top: 0; z-index: 50;
   background: var(--glass-bg-strong);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -62,13 +79,12 @@ header.site {
 }
 header.site .bar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 24px;
+  padding: 16px 24px;
   max-width: 1220px; margin: 0 auto;
-  gap: 20px;
+  gap: 24px;
 }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.brand img { height: 40px; width: auto; }
-.brand-text { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--ink-dim); text-transform: uppercase; white-space: nowrap; }
+.brand img { height: 62px; width: auto; }
 nav.main { display: flex; gap: 18px; align-items: center; }
 nav.main a {
   font-family: var(--sans); font-size: 14px; letter-spacing: 0px; text-transform: none;
@@ -90,6 +106,7 @@ nav.main a.cta:hover { background: #55e6ac; }
   display: none; flex-direction: column; gap: 2px;
   max-width: 1220px; margin: 0 auto; padding: 0 24px;
   max-height: 0; overflow: hidden; transition: max-height .25s ease;
+  background: var(--glass-bg-strong);
 }
 .mobile-menu.open { max-height: 420px; padding-bottom: 16px; }
 .mobile-menu a {
@@ -107,6 +124,37 @@ nav.main a.cta:hover { background: #55e6ac; }
   padding: 64px 0 48px;
   border-bottom: 1px solid var(--line);
   position: relative;
+}
+.hero-photo {
+  min-height: 560px;
+  padding: 0;
+  border-bottom: none;
+  background-image: url('hero-chimney.jpg');
+  background-size: cover;
+  background-position: center 70%;
+  display: flex; align-items: center;
+}
+.hero-photo::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(6,10,8,0.05) 0%, rgba(6,10,8,0.25) 45%, rgba(6,10,8,0.6) 100%);
+}
+.hero-panel {
+  position: relative; z-index: 1;
+  max-width: 1220px; margin: 0 auto; padding: 0 24px;
+  width: 100%;
+  display: flex; flex-direction: column; align-items: flex-end;
+  text-align: right;
+}
+.hero-panel > * { max-width: 560px; }
+.hero-panel .btn-row { flex-direction: row-reverse; }
+.hero-panel::before {
+  content: "";
+  position: absolute; top: -28px; right: -1000px; left: 45%; bottom: -28px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+  z-index: -1;
 }
 .hero .grid {
   display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center;
