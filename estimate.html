@@ -158,19 +158,18 @@ nav.main a.cta:hover { background: #55e6ac; }
   position: relative; z-index: 2;
   max-width: 1220px; margin: 0 auto; padding: 0 24px;
   width: 100%;
-  display: flex; flex-direction: column; align-items: flex-end;
-  text-align: right;
+  display: flex; justify-content: flex-end;
 }
-.hero-panel > * { max-width: 560px; }
-.hero-panel .btn-row { flex-direction: row-reverse; }
-.hero-panel::before {
-  content: "";
-  position: absolute; top: -28px; right: -1000px; left: 45%; bottom: -28px;
+.hero-panel-inner {
+  max-width: 480px;
+  text-align: left;
+  padding: 32px 36px;
   background: var(--glass-bg-strong);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-  border-right: 1px solid var(--glass-border);
-  z-index: -1;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
 }
+.hero-panel-inner .btn-row { flex-direction: row; }
 .hero .grid {
   display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center;
 }
@@ -580,10 +579,8 @@ html[data-theme="light"] .stage-tab h3 { color: #0e1512; }
   .hero .grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr 1fr; }
   .stat-strip { grid-template-columns: 1fr; }
-  .hero-panel { align-items: stretch; text-align: left; }
-  .hero-panel > * { max-width: none; }
-  .hero-panel .btn-row { flex-direction: row; }
-  .hero-panel::before { left: -24px; right: -24px; top: -24px; bottom: -24px; border-right: none; }
+  .hero-panel { justify-content: stretch; padding: 0; }
+  .hero-panel-inner { max-width: none; padding: 24px; border-radius: 0; border-left: none; border-right: none; }
   .work-pair { grid-template-columns: 1fr; }
   .review-box-footer { flex-direction: column; text-align: center; }
   .review-qr-text { text-align: center; }
@@ -640,7 +637,6 @@ html[data-theme="light"] .stage-tab h3 { color: #0e1512; }
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="our-work.html">Our Work</a>
-      <a href="assessments.html">Assessments</a>
       <a href="estimate.html" class="active">Estimate</a>
         <a href="estimate.html" class="cta">Get a Quote</a>
       </nav>
@@ -653,7 +649,6 @@ html[data-theme="light"] .stage-tab h3 { color: #0e1512; }
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="our-work.html">Our Work</a>
-      <a href="assessments.html">Assessments</a>
       <a href="estimate.html" class="active">Estimate</a>
       <a href="estimate.html" class="cta">Get a Quote</a>
   </div>
@@ -832,7 +827,6 @@ html[data-theme="light"] .stage-tab h3 { color: #0e1512; }
       <h4>Company</h4>
       <p><a href="services.html">Services</a></p>
       <p><a href="our-work.html">Our Work</a></p>
-      <p><a href="assessments.html">Property Assessments</a></p>
       <p><a href="estimate.html">Get an Estimate</a></p>
     </div>
   </div>
