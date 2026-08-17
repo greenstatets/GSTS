@@ -79,65 +79,120 @@
   <div class="console" id="quoteForm">
     <div class="console-form">
 
-      <div class="field">
-        <label>Service Type</label>
-        <div class="chip-row" id="serviceChips">
-          <div class="chip selected" data-value="removal">Tree Removal</div>
-          <div class="chip" data-value="pruning">Tree Pruning</div>
-          <div class="chip" data-value="storm">Storm Risk Assessment</div>
-          <div class="chip" data-value="permit">Removal &amp; Replant Permits</div>
-          <div class="chip" data-value="cleanup">Storm Cleanup</div>
+      <div class="est-card">
+        <div class="est-card-title">Job Basics</div>
+        <div class="field">
+          <label for="serviceSelect">Service Type</label>
+          <select class="est-select" id="serviceSelect">
+            <option value="removal" selected>Tree Removal</option>
+            <option value="pruning">Tree Pruning</option>
+            <option value="storm">Storm Risk Assessment</option>
+            <option value="permit">Removal &amp; Replant Permits</option>
+            <option value="cleanup">Storm Cleanup</option>
+          </select>
+          <div class="chip-row" id="serviceChips" style="display:none;">
+            <div class="chip selected" data-value="removal">Tree Removal</div>
+            <div class="chip" data-value="pruning">Tree Pruning</div>
+            <div class="chip" data-value="storm">Storm Risk Assessment</div>
+            <div class="chip" data-value="permit">Removal &amp; Replant Permits</div>
+            <div class="chip" data-value="cleanup">Storm Cleanup</div>
+          </div>
+        </div>
+
+        <div class="field" id="sizeField">
+          <label id="sizeLabel">Approximate Tree Height</label>
+          <div class="range-row">
+            <input type="range" id="sizeRange" min="25" max="150" step="5" value="45">
+            <span class="range-val" id="sizeVal">45 ft</span>
+          </div>
+        </div>
+
+        <div class="field" id="widthField">
+          <label>Canopy Width (how far the branches spread)</label>
+          <div class="range-row">
+            <input type="range" id="widthRange" min="10" max="60" step="5" value="25">
+            <span class="range-val" id="widthVal">25 ft</span>
+          </div>
+        </div>
+
+        <div class="field" id="cleanupField">
+          <label for="cleanupSelect">Cleanup</label>
+          <select class="est-select" id="cleanupSelect">
+            <option value="full" selected>Full Cleanup</option>
+            <option value="none">I'll Haul It Myself</option>
+          </select>
+          <div class="toggle-switch" id="cleanupChips" style="display:none;">
+            <div class="chip selected" data-value="full">Full Cleanup</div>
+            <div class="chip" data-value="none">I'll Haul It Myself</div>
+          </div>
+        </div>
+
+        <div class="field" id="hoursField" style="display:none;">
+          <label>Estimated Hours On-Site</label>
+          <div class="range-row">
+            <input type="range" id="hoursRange" min="1" max="10" value="3">
+            <span class="range-val" id="hoursVal">3 hrs</span>
+          </div>
         </div>
       </div>
 
-      <div class="field" id="sizeField">
-        <label id="sizeLabel">Approximate Tree Height</label>
-        <div class="range-row">
-          <input type="range" id="sizeRange" min="25" max="150" step="5" value="45">
-          <span class="range-val" id="sizeVal">45 ft</span>
+      <div class="est-card" id="foliageCard" style="display:none;">
+        <div class="est-card-title">How Much Comes Off</div>
+        <div class="field">
+          <label>Live Canopy to Thin</label>
+          <div class="chip-row" id="foliageChips">
+            <div class="chip" data-value="10">10%</div>
+            <div class="chip selected" data-value="20">20%</div>
+            <div class="chip" data-value="30">30%</div>
+            <div class="chip" data-value="50">Request up to 50%</div>
+          </div>
+          <p style="font-size: 12px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5;">
+            Standard practice caps live-canopy removal at about 30% in one visit — that's a tree-health limit, not a pricing one.
+          </p>
+        </div>
+        <div class="field">
+          <label>Deadwood</label>
+          <div class="check-row" id="deadwoodChips">
+            <label class="est-check"><input type="checkbox" data-value="deadwood"> Also remove dead branches (no live-canopy limit applies)</label>
+          </div>
         </div>
       </div>
 
-      <div class="field" id="cleanupField">
-        <label>Cleanup</label>
-        <div class="chip-row" id="cleanupChips">
-          <div class="chip selected" data-value="full">Full Cleanup</div>
-          <div class="chip" data-value="none">I'll Haul It Myself</div>
+      <div class="est-card">
+        <div class="est-card-title">Site Conditions</div>
+        <div class="field">
+          <label for="complexitySelect">Access &amp; Hazard Level</label>
+          <select class="est-select" id="complexitySelect">
+            <option value="open" selected>Open Yard</option>
+            <option value="tight">Tight Space</option>
+            <option value="hazard">Hazardous</option>
+          </select>
+          <div class="chip-row" id="complexityChips" style="display:none;">
+            <div class="chip selected" data-value="open">Open Yard</div>
+            <div class="chip" data-value="tight">Tight Space</div>
+            <div class="chip" data-value="hazard">Hazardous</div>
+          </div>
         </div>
       </div>
 
-      <div class="field" id="hoursField" style="display:none;">
-        <label>Estimated Hours On-Site</label>
-        <div class="range-row">
-          <input type="range" id="hoursRange" min="1" max="10" value="3">
-          <span class="range-val" id="hoursVal">3 hrs</span>
+      <div class="est-card">
+        <div class="est-card-title">Extras</div>
+        <div class="field">
+          <label>Anything Else?</label>
+          <div class="check-row" id="addonChips">
+            <label class="est-check" id="buckRoundsChip"><input type="checkbox" data-value="buckRounds"> Cut to 16&quot; Rounds</label>
+            <label class="est-check"><input type="checkbox" data-value="manlift"> Manlift Access</label>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label>Access &amp; Hazard Level</label>
-        <div class="chip-row" id="complexityChips">
-          <div class="chip selected" data-value="open">Open Yard</div>
-          <div class="chip" data-value="tight">Tight Space</div>
-          <div class="chip" data-value="hazard">Hazardous</div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Anything Else?</label>
-        <div class="chip-row" id="addonChips">
-          <div class="chip" id="buckRoundsChip" data-value="buckRounds">Cut to 16&quot; Rounds</div>
-          <div class="chip" data-value="manlift">Manlift Access</div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Discounts</label>
-        <div class="chip-row" id="seniorChips">
-          <div class="chip" data-value="senior">Senior Discount (10%)</div>
-        </div>
-        <div class="chip-row" id="keepWoodChips" style="margin-top: 8px;">
-          <div class="chip" data-value="keepWood">I'll Keep the Wood</div>
+        <div class="field">
+          <label>Discounts</label>
+          <div class="check-row" id="seniorChips">
+            <label class="est-check"><input type="checkbox" data-value="senior"> Senior Discount (10%)</label>
+          </div>
+          <div class="check-row" id="keepWoodChips" style="margin-top: 4px;">
+            <label class="est-check"><input type="checkbox" data-value="keepWood"> I'll Keep the Wood</label>
+          </div>
         </div>
       </div>
 
@@ -215,6 +270,17 @@
   </div>
 </section>
 
+<div class="modal-overlay" id="foliageWarningModal">
+  <div class="modal-box">
+    <h3>Above the recommended limit</h3>
+    <p>Removing more than about 30% of a tree's live canopy in one visit can stress the tree, reduce its ability to recover, and increase its vulnerability to pests and disease. We can still do the work if that's what's needed — just wanted to flag it before you go further.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="foliageWarnBack">Back to 30%</button>
+      <button type="button" class="btn btn-primary" id="foliageWarnContinue">Continue Anyway</button>
+    </div>
+  </div>
+</div>
+
 <footer class="site">
   <div class="wrap grid">
     <div>
@@ -244,7 +310,7 @@
 <script src="assets/common.js"></script>
 <script src="assets/quote.js"></script>
 <script>
-  const state = { service: 'removal', size: 45, complexity: 'open', hours: 3, noCleanup: false, addons: [], senior: false, keepWood: false };
+  const state = { service: 'removal', size: 45, width: 25, complexity: 'open', hours: 3, noCleanup: false, addons: [], senior: false, keepWood: false, foliagePct: 20, deadwood: false };
   let cart = [];
   let hasInteracted = false;
 
@@ -272,20 +338,26 @@
   function onServiceOrInputChange(changedKey) {
     if (changedKey === 'service') {
       const sizeField = document.getElementById('sizeField');
+      const widthField = document.getElementById('widthField');
       const hoursField = document.getElementById('hoursField');
       const sizeLabel = document.getElementById('sizeLabel');
       const cleanupField = document.getElementById('cleanupField');
+      const foliageCard = document.getElementById('foliageCard');
 
-      cleanupField.style.display = (state.service === 'removal' || state.service === 'pruning') ? 'block' : 'none';
+      cleanupField.style.display = (state.service === 'removal' || state.service === 'pruning' || state.service === 'cleanup') ? 'block' : 'none';
+      foliageCard.style.display = (state.service === 'pruning') ? 'block' : 'none';
 
       if (state.service === 'cleanup') {
         sizeField.style.display = 'none';
+        widthField.style.display = 'none';
         hoursField.style.display = 'block';
       } else if (state.service === 'storm' || state.service === 'permit') {
         sizeField.style.display = 'none';
+        widthField.style.display = 'none';
         hoursField.style.display = 'none';
       } else {
         sizeField.style.display = 'block';
+        widthField.style.display = 'block';
         hoursField.style.display = 'none';
         sizeLabel.textContent = serviceLabels[state.service];
       }
@@ -314,18 +386,81 @@
   setupChips('serviceChips', 'service');
   setupChips('complexityChips', 'complexity');
 
+  // canopy width slider
+  document.getElementById('widthRange').addEventListener('input', (e) => {
+    state.width = parseInt(e.target.value, 10);
+    document.getElementById('widthVal').textContent = state.width + ' ft';
+    hasInteracted = true;
+    render();
+  });
+
+  // service: dropdown drives everything, mirrors into hidden legacy chip row
+  document.getElementById('serviceSelect').addEventListener('change', (e) => {
+    state.service = e.target.value;
+    document.querySelectorAll('#serviceChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.service));
+    hasInteracted = true;
+    onServiceOrInputChange('service');
+  });
+
+  // cleanup: dropdown drives noCleanup, mirrors into hidden legacy chip row
+  document.getElementById('cleanupSelect').addEventListener('change', (e) => {
+    state.noCleanup = (e.target.value === 'none');
+    document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === e.target.value));
+    hasInteracted = true;
+    render();
+  });
+
+  // deadwood: independent checkbox, no live-canopy limit applies
+  document.querySelector('#deadwoodChips input').addEventListener('change', (e) => {
+    state.deadwood = e.target.checked;
+    hasInteracted = true;
+    render();
+  });
+
+  // foliage %: fixed options only. 10/20/30 apply immediately; 50 is an
+  // above-standard request that requires acknowledging the warning first,
+  // and re-triggers every time the selection crosses up from 30 or below.
+  document.querySelectorAll('#foliageChips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const val = parseInt(chip.dataset.value, 10);
+      if (val > 30) {
+        showFoliageWarning();
+      } else {
+        setFoliagePct(val);
+      }
+    });
+  });
+  function setFoliagePct(val) {
+    state.foliagePct = val;
+    document.querySelectorAll('#foliageChips .chip').forEach(c => c.classList.toggle('selected', parseInt(c.dataset.value, 10) === val));
+    hasInteracted = true;
+    render();
+  }
+  function showFoliageWarning() {
+    document.getElementById('foliageWarningModal').style.display = 'flex';
+  }
+  document.getElementById('foliageWarnContinue').addEventListener('click', () => {
+    document.getElementById('foliageWarningModal').style.display = 'none';
+    setFoliagePct(50);
+  });
+  document.getElementById('foliageWarnBack').addEventListener('click', () => {
+    document.getElementById('foliageWarningModal').style.display = 'none';
+    setFoliagePct(30);
+  });
+
   // cleanup toggle: single-select chip pair, sets noCleanup before rendering
   function updateBuckRoundsVisibility() {
     const chip = document.getElementById('buckRoundsChip');
     // only a Tree Removal brings down a trunk worth bucking into rounds —
     // and only worth offering once there's meaningful trunk (medium/large)
     const irrelevant = (state.service !== 'removal') || (state.size < 45);
-    chip.style.display = irrelevant ? 'none' : 'inline-flex';
+    chip.style.display = irrelevant ? 'none' : 'flex';
     if (irrelevant) {
       const idx = state.addons.indexOf('buckRounds');
       if (idx !== -1) {
         state.addons.splice(idx, 1);
-        chip.classList.remove('selected');
+        const cb = chip.querySelector('input');
+        if (cb) cb.checked = false;
       }
     }
   }
@@ -338,10 +473,11 @@
     const notApplicable = (state.service !== 'removal') || (state.size < 45);
     const alreadyCovered = (state.service === 'removal' && state.noCleanup);
     const irrelevant = notApplicable || alreadyCovered;
-    field.style.display = irrelevant ? 'none' : 'flex';
+    field.style.display = irrelevant ? 'none' : 'block';
     if (irrelevant && state.keepWood) {
       state.keepWood = false;
-      document.querySelector('#keepWoodChips .chip').classList.remove('selected');
+      const cb = document.querySelector('#keepWoodChips input');
+      if (cb) cb.checked = false;
     }
   }
 
@@ -356,41 +492,45 @@
     });
   });
 
-  // senior discount: single toggle chip, click to switch on/off
-  document.querySelectorAll('#seniorChips .chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      state.senior = !state.senior;
-      chip.classList.toggle('selected', state.senior);
+  // senior discount: checkbox toggle
+  document.querySelectorAll('#seniorChips input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state.senior = cb.checked;
       hasInteracted = true;
       render();
     });
   });
 
-  // keep-the-wood: single toggle chip, subtracts instead of adding (see quote.js)
-  document.querySelectorAll('#keepWoodChips .chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      state.keepWood = !state.keepWood;
-      chip.classList.toggle('selected', state.keepWood);
+  // keep-the-wood: checkbox toggle, subtracts instead of adding (see quote.js)
+  document.querySelectorAll('#keepWoodChips input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state.keepWood = cb.checked;
       hasInteracted = true;
       render();
     });
   });
 
-  // add-ons: independent multi-select toggles, not mutually exclusive
-  document.querySelectorAll('#addonChips .chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const key = chip.dataset.value;
+  // add-ons: independent multi-select checkboxes
+  document.querySelectorAll('#addonChips input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const key = cb.dataset.value;
       const idx = state.addons.indexOf(key);
-      if (idx === -1) {
+      if (cb.checked && idx === -1) {
         state.addons.push(key);
-        chip.classList.add('selected');
-      } else {
+      } else if (!cb.checked && idx !== -1) {
         state.addons.splice(idx, 1);
-        chip.classList.remove('selected');
       }
       hasInteracted = true;
       render();
     });
+  });
+
+  // access & hazard level: dropdown, mirrors into hidden legacy chip row for compatibility
+  document.getElementById('complexitySelect').addEventListener('change', (e) => {
+    state.complexity = e.target.value;
+    document.querySelectorAll('#complexityChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.complexity));
+    hasInteracted = true;
+    render();
   });
 
   const complexityPct = { open: 0.33, tight: 0.66, hazard: 1.0 };
@@ -437,17 +577,29 @@
     hasInteracted = true;
     Object.assign(state, saved.state);
     if (typeof state.size !== 'number' || isNaN(state.size)) state.size = 45; // guard against pre-slider saved data
+    if (typeof state.width !== 'number' || isNaN(state.width)) state.width = 25; // guard against pre-width saved data
+    if (typeof state.foliagePct !== 'number' || isNaN(state.foliagePct)) state.foliagePct = 20;
     document.querySelectorAll('#serviceChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.service));
+    document.getElementById('serviceSelect').value = state.service;
     onServiceOrInputChange('service');
     document.getElementById('sizeRange').value = state.size;
     document.getElementById('sizeVal').textContent = state.size + ' ft';
+    document.getElementById('widthRange').value = state.width;
+    document.getElementById('widthVal').textContent = state.width + ' ft';
     document.querySelectorAll('#complexityChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === state.complexity));
+    document.getElementById('complexitySelect').value = state.complexity;
     document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.toggle('selected', (c.dataset.value === 'none') === !!state.noCleanup));
-    document.querySelectorAll('#seniorChips .chip').forEach(c => c.classList.toggle('selected', !!state.senior));
-    document.querySelectorAll('#keepWoodChips .chip').forEach(c => c.classList.toggle('selected', !!state.keepWood));
+    document.getElementById('cleanupSelect').value = state.noCleanup ? 'none' : 'full';
+    document.querySelectorAll('#foliageChips .chip').forEach(c => c.classList.toggle('selected', parseInt(c.dataset.value, 10) === state.foliagePct));
+    const deadwoodCb = document.querySelector('#deadwoodChips input');
+    if (deadwoodCb) deadwoodCb.checked = !!state.deadwood;
+    const seniorCb = document.querySelector('#seniorChips input');
+    if (seniorCb) seniorCb.checked = !!state.senior;
+    const keepWoodCb = document.querySelector('#keepWoodChips input');
+    if (keepWoodCb) keepWoodCb.checked = !!state.keepWood;
     updateKeepWoodVisibility();
     updateBuckRoundsVisibility();
-    document.querySelectorAll('#addonChips .chip').forEach(c => c.classList.toggle('selected', (state.addons || []).includes(c.dataset.value)));
+    document.querySelectorAll('#addonChips input').forEach(c => { c.checked = (state.addons || []).includes(c.dataset.value); });
     document.getElementById('hoursRange').value = state.hours;
     document.getElementById('hoursVal').textContent = state.hours + ' hrs';
     render();
@@ -527,15 +679,26 @@
     // level as-is since it's usually the same property
     state.service = 'removal';
     state.size = 45;
+    state.width = 25;
     state.noCleanup = false;
     state.addons = [];
     state.keepWood = false;
+    state.foliagePct = 20;
+    state.deadwood = false;
     document.querySelectorAll('#serviceChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'removal'));
+    document.getElementById('serviceSelect').value = 'removal';
     document.getElementById('sizeRange').value = 45;
     document.getElementById('sizeVal').textContent = '45 ft';
+    document.getElementById('widthRange').value = 25;
+    document.getElementById('widthVal').textContent = '25 ft';
     document.querySelectorAll('#cleanupChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'full'));
-    document.querySelectorAll('#addonChips .chip').forEach(c => c.classList.remove('selected'));
-    document.querySelector('#keepWoodChips .chip').classList.remove('selected');
+    document.getElementById('cleanupSelect').value = 'full';
+    document.querySelectorAll('#foliageChips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === '20'));
+    const dwCb = document.querySelector('#deadwoodChips input');
+    if (dwCb) dwCb.checked = false;
+    document.querySelectorAll('#addonChips input').forEach(c => { c.checked = false; });
+    const kwCb = document.querySelector('#keepWoodChips input');
+    if (kwCb) kwCb.checked = false;
     onServiceOrInputChange('service');
     render();
   });

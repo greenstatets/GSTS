@@ -161,6 +161,29 @@
     </article>
 
     <article class="project-item">
+      <div class="slideshow" id="firSlideshow">
+        <div class="slideshow-track">
+          <img src="assets/projects/fir-slideshow/01.jpg" alt="Storm-fallen Douglas fir, step 1" class="slide active">
+          <img src="assets/projects/fir-slideshow/02.jpg" alt="Storm-fallen Douglas fir, step 2" class="slide">
+          <img src="assets/projects/fir-slideshow/03.jpg" alt="Storm-fallen Douglas fir, step 3" class="slide">
+          <img src="assets/projects/fir-slideshow/04.jpg" alt="Storm-fallen Douglas fir, step 4" class="slide">
+          <img src="assets/projects/fir-slideshow/05.jpg" alt="Storm-fallen Douglas fir, step 5" class="slide">
+          <img src="assets/projects/fir-slideshow/06.jpg" alt="Storm-fallen Douglas fir, step 6" class="slide">
+          <img src="assets/projects/fir-slideshow/07.jpg" alt="Storm-fallen Douglas fir, step 7" class="slide">
+          <img src="assets/projects/fir-slideshow/08.jpg" alt="Storm-fallen Douglas fir, step 8" class="slide">
+          <img src="assets/projects/fir-slideshow/09.jpg" alt="Storm-fallen Douglas fir, step 9" class="slide">
+          <img src="assets/projects/fir-slideshow/10.jpg" alt="Storm-fallen Douglas fir, step 10" class="slide">
+          <img src="assets/projects/fir-slideshow/11.jpg" alt="Storm-fallen Douglas fir, step 11" class="slide">
+          <img src="assets/projects/fir-slideshow/12.jpg" alt="Storm-fallen Douglas fir, step 12" class="slide">
+          <img src="assets/projects/fir-slideshow/13.jpg" alt="Storm-fallen Douglas fir, step 13" class="slide">
+          <img src="assets/projects/fir-slideshow/14.jpg" alt="Storm-fallen Douglas fir, step 14" class="slide">
+        </div>
+        <div class="slideshow-dots" id="firDots"></div>
+      </div>
+      <p>Bucking and stump grinding a storm-fallen Douglas fir, start to finish.</p>
+    </article>
+
+    <article class="project-item">
       <img src="assets/work/cedar-climb.jpg" alt="Looking up into the canopy of a large cedar tree during a cleaning and thinning pass">
       <p>A cleaning and thinning pass on a mature cedar — working up through the canopy to clear deadwood and open up the crown.</p>
     </article>
@@ -205,6 +228,27 @@
 </footer>
 
 <script src="assets/common.js"></script>
+<script>
+  (function() {
+    var slides = document.querySelectorAll('#firSlideshow .slide');
+    var dotsWrap = document.getElementById('firDots');
+    if (!slides.length || !dotsWrap) return;
+    slides.forEach(function(_, i) {
+      var dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dotsWrap.appendChild(dot);
+    });
+    var dots = dotsWrap.querySelectorAll('span');
+    var current = 0;
+    setInterval(function() {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }, 3000);
+  })();
+</script>
 
 </body>
 </html>

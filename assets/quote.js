@@ -27,6 +27,9 @@ const COMPLEXITY_MULT = {
 // the total labor — so it gets its own, much more modest discount below.
 const NO_CLEANUP_MULT = { low: 0.33, high: 0.5 };
 const PRUNING_NO_CLEANUP_MULT = { low: 0.85, high: 0.90 };
+// Storm Cleanup self-haul: confirmed real discount, same 35% off both ends,
+// still subject to the $250 floor below.
+const CLEANUP_NO_CLEANUP_MULT = { low: 0.65, high: 0.65 };
 
 const SENIOR_DISCOUNT = 0.10;
 
@@ -49,6 +52,33 @@ function interp(height, vLow, vHigh) {
 const ADDONS = {
   manlift: { low: 450, high: 450 }  // flat — not height-dependent
 };
+
+// Canopy width (spread) — a secondary sizing dimension alongside height.
+// Default (25ft) is calibrated to produce NO change from the existing
+// height-only pricing, so nothing already reviewed shifts unless the
+// customer actually moves this slider away from the default.
+const WIDTH_MIN = 10, WIDTH_MAX = 60, WIDTH_DEFAULT = 25;
+function widthMultiplier(width) {
+  const w = width || WIDTH_DEFAULT;
+  if (w <= WIDTH_DEFAULT) {
+    const t = (w - WIDTH_MIN) / (WIDTH_DEFAULT - WIDTH_MIN);
+    return 0.9 + t * (1.0 - 0.9);
+  }
+  const t = (w - WIDTH_DEFAULT) / (WIDTH_MAX - WIDTH_DEFAULT);
+  return 1.0 + t * (1.3 - 1.0);
+}
+
+// Pruning foliage load — how much of the LIVE canopy is being thinned.
+// Fixed customer-facing options only: 10 / 20 / 30, plus 50 as an explicit
+// above-standard request (see the warning modal in the UI). 20% is treated
+// as the calibrated baseline — matches the existing, already-reviewed
+// pruning numbers exactly, so nothing shifts unless the customer picks a
+// different amount.
+const FOLIAGE_MULT = { 10: 0.75, 20: 1.0, 30: 1.25, 50: 1.6 };
+
+// Deadwood removal is NOT subject to the live-canopy limit at all (dead
+// wood isn't living tissue) — flat add-on, independent of the thinning %.
+const DEADWOOD_ADDON = { low: 75, high: 150 };
 
 // No billable job should price out under roughly one hour of real labor —
 // even a quick site visit has drive time, setup, and a minimum trip charge.
@@ -74,7 +104,7 @@ function removalRaw(height) {
 }
 
 function computeEstimate(state) {
-  const { service, size, complexity, hours, noCleanup, addons, keepWood, senior } = state;
+  const { service, size, complexity, hours, noCleanup, addons, keepWood, senior, width, foliagePct, deadwood } = state;
 
   // free, no matter what else is selected — bundled into the estimate visit
   if (service === 'storm') return { low: 0, high: 0 };
@@ -86,6 +116,8 @@ function computeEstimate(state) {
     const base = removalRaw(height);
     low = base * 0.85;
     high = base * 1.25;
+    const wMult = widthMultiplier(width);
+    low *= wMult; high *= wMult;
     if (noCleanup) {
       low *= NO_CLEANUP_MULT.low;
       high *= NO_CLEANUP_MULT.high;
@@ -94,6 +126,13 @@ function computeEstimate(state) {
     const base = RATES.pruning.base + RATES.pruning.perFoot * height;
     low = base * 0.85;
     high = base * 1.2;
+    const wMult = widthMultiplier(width);
+    low *= wMult; high *= wMult;
+    const fMult = FOLIAGE_MULT[foliagePct] || FOLIAGE_MULT[20];
+    low *= fMult; high *= fMult;
+    if (deadwood) {
+      low += DEADWOOD_ADDON.low; high += DEADWOOD_ADDON.high;
+    }
     if (noCleanup) {
       low *= PRUNING_NO_CLEANUP_MULT.low;
       high *= PRUNING_NO_CLEANUP_MULT.high;
@@ -105,6 +144,10 @@ function computeEstimate(state) {
     const h = hours || 3;
     low = RATES.cleanup.perHourLow * h;
     high = RATES.cleanup.perHourHigh * h;
+    if (noCleanup) {
+      low *= CLEANUP_NO_CLEANUP_MULT.low;
+      high *= CLEANUP_NO_CLEANUP_MULT.high;
+    }
   }
 
   const mult = COMPLEXITY_MULT[complexity] || 1.0;
